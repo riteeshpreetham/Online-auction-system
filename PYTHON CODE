@@ -1,0 +1,50 @@
+from flask import Flask, request, jsonify, render_template
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///auction.db'
+db = SQLAlchemy(app)
+
+class Auction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    start_price = db.Column(db.Float, nullable=False)
+    current_bid = db.Column(db.Float, nullable=False)
+    end_time = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String(200), nullable=True)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/api/auctions', methods=['GET'])
+def get_auctions():
+    auctions = Auction.query.filter(Auction.end_time > datetime.now().strftime('%Y-%m-%d %H:%M')).all()
+    return jsonify([{
+        'id': auction.id,
+        'title': auction.title,
+        'description': auction.description,
+        'currentBid': auction.current_bid,
+        'endTime': auction.end_time,
+        'image': auction.image
+    } for auction in auctions])
+
+@app.route('/api/bid', methods=['POST'])
+def place_bid():
+    data = request.json
+    auction_id = data['auctionId']
+    bid_amount = data['bidAmount']
+    auction = Auction.query.filter_by(id=auction_id).first()
+
+    if auction and bid_amount > auction.current_bid:
+        auction.current_bid = bid_amount
+        db.session.commit()
+        return jsonify({'message': 'Bid placed successfully!'})
+    else:
+        return jsonify({'message': 'Bid failed. Ensure the bid is higher and auction is active.'}), 400
+
+if __name__ == '__main__':
+    db.create_all()
+    app.run(debug=True)
