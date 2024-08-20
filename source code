@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Auction System</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+    /* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #282c34;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: fadeIn 1s ease-in-out;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+header .logo img {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+header .logo img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+header nav a:hover {
+    color: #61dafb;
+    text-shadow: 0 0 5px rgba(97, 218, 251, 0.5);
+}
+
+/* Main Section */
+main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+h2 {
+    color: #282c34;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Auction Items */
+.auction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.auction-item {
+    display: flex;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-items: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.auction-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.auction-item img {
+    max-width: 220px;
+    height: auto;
+    border-radius: 12px;
+    margin-right: 20px;
+    transition: transform 0.3s ease;
+}
+
+.auction-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Bid Form */
+.bid-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.bid-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.bid-form input:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.bid-form button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.bid-form button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Contact Form */
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#contact-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#contact-form input,
+#contact-form textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#contact-form button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#contact-form button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+    background-color: #282c34;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+    <script defer src="scripts/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const auctions = [
+        { id: 1, title: 'Antique Vase', description: 'A beautiful antique vase from the 18th century.', currentBid: 150, endTime: '2024-08-25 18:00', image: 'https://i.etsystatic.com/22187040/r/il/052acd/5896400719/il_fullxfull.5896400719_azvl.jpg' },
+        { id: 2, title: 'Vintage Car', description: 'A classic vintage car in excellent condition.', currentBid: 5000, endTime: '2024-08-27 21:00', image: 'https://hips.hearstapps.com/townandcountry/assets/16/14/1954-mercedes-300sl-gullwing-a_1.jpg' }
+    ];
+
+    const auctionList = document.getElementById('auction-list');
+
+    auctions.forEach(auction => {
+        const auctionItem = document.createElement('div');
+        auctionItem.className = 'auction-item';
+        auctionItem.innerHTML = `
+            <img src="${auction.image}" alt="${auction.title}">
+            <div class="auction-details">
+                <h3>${auction.title}</h3>
+                <p>${auction.description}</p>
+                <p>Current Bid: $${auction.currentBid}</p>
+                <p>Ends At: ${auction.endTime}</p>
+                <form class="bid-form" data-auction-id="${auction.id}">
+                    <input type="number" placeholder="Enter your bid" required>
+                    <button type="submit">Place Bid</button>
+                </form>
+            </div>
+        `;
+        auctionList.appendChild(auctionItem);
+    });
+
+    document.querySelectorAll('.bid-form').forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const auctionId = form.dataset.auctionId;
+            const bidAmount = form.querySelector('input').value;
+            alert(`Bid of $${bidAmount} placed on auction ${auctionId}`);
+            // Here you would normally send the bid to the server
+        });
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const message = e.target.message.value;
+        alert(`Message sent from ${name} (${email}): ${message}`);
+        // Here you would normally send the message to the server
+    });
+});
+</script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="assets/images/logo.png" alt="Auction Logo">
+            <h1>Online Auction System</h1>
+        </div>
+        <nav>
+            <a href="#auctions">Auctions</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section id="auctions">
+            <h2>Active Auctions</h2>
+            <div class="auction-list" id="auction-list">
+                <!-- Auctions will be injected here by JavaScript -->
+            </div>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Our online auction system helps users conduct auctions securely and efficiently from the comfort of their homes.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Online Auction System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
