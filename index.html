@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Auction System</title>
+        <link rel="stylesheet" href="styles/style.css"> 
+        <script defer src="scripts/script.js"></script> 
+</head>
+<body>
+    <header>
+        <div class="logo">
+                        <img src="https://via.placeholder.com/60/61dafb/000000?text=AU" alt="Auction Logo">
+            <h1>Online Auction System</h1>
+        </div>
+        <nav>
+            <a href="#auctions">Auctions</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <main>
+        <section id="auctions">
+            <h2>Active Auctions</h2>
+            <div class="auction-list" id="auction-list">
+                            </div>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Our online auction system helps users conduct auctions securely and efficiently from the comfort of their homes.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Online Auction System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
